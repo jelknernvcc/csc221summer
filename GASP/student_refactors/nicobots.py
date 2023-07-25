@@ -12,12 +12,9 @@ def draw_grid():
 def place_player():
     global player_x, player_y, player_shape
 
-    player_radius = 10
-    player_x = 150
-    player_y = 110
+    player_x, player_y = 150, 110
     player_shape = Circle((player_x, player_y),
-                          player_radius, filled=True, color=color.BLUE)
-
+                          10, filled=True, color=color.BLUE)
 
 
 begin_graphics()
