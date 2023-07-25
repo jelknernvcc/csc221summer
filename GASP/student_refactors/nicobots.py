@@ -23,7 +23,6 @@ def place_player():
 begin_graphics()
 draw_grid()  
 place_player()
-move_direction = (0, 0) 
 
 while True:
     key = update_when('key_pressed')
