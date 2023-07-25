@@ -1,52 +1,54 @@
 from gasp import *
 
 
-Sc_width = 640
-Sc_lenght = 480
-begin_graphics(Sc_width, Sc_lenght)
+def draw_grid():
+    for x in range(0, 640, 20):
+        Line((x, 0),(x, 640), thickness=0.01, color=color.LIGHTGRAY)
+
+    for y in range(0, 480, 20):
+        Line((0, y),(640, y), thickness=0.01, color=color.LIGHTGRAY)
 
 
-circle_radius = 10
-circle_x = 150
-circle_y = 110
-move_direction = 20
+def place_player():
+    global player_x, player_y, player_shape
 
-def grid():
-    for x in range(0,640,20):
-        Line((x,0),(x,640),thickness=.01,color='lightgray')
+    player_radius = 10
+    player_x = 150
+    player_y = 110
+    player_shape = Circle((player_x, player_y),
+                          player_radius, filled=True, color=color.BLUE)
 
-    for y in range(0,480,20):
-        Line((0,y),(640,y),thickness=.01,color='lightgray')
+
+
+begin_graphics()
+draw_grid()  
+place_player()
+move_direction = (0, 0) 
 
 while True:
-    clear_screen()
-    grid()  
-    Circle((circle_x, circle_y), circle_radius, filled=True, color=color.BLUE)
-
     key = update_when('key_pressed')
     if key == 'Escape':  
         break
     elif key == 's':
-        circle_y -= move_direction
+        move_direction = (0, 0)
     elif key == 'w':
-        circle_y += move_direction
+        move_direction = (0, 1)
     elif key == 'a':
-        circle_x -= move_direction
+        move_direction = (-1, 0)
     elif key == 'd':
-        circle_x += move_direction
+        move_direction = (1, 0)
     elif key == 'e':
-        circle_x += move_direction
-        circle_y += move_direction 
+        move_direction = (1, 1)
     elif key == 'q':
-        circle_x -= move_direction
-        circle_y += move_direction
+        move_direction = (-1, 1)
     elif key == 'c':
-        circle_x += move_direction
-        circle_y -= move_direction
+        move_direction = (1, -1)
     elif key == 'Shift_L':
-        circle_x -= move_direction
-        circle_y -= move_direction 
+        move_direction = (-1, -1)
 
-    
+    player_x += 20 * move_direction[0]
+    player_y += 20 * move_direction[1]
+    move_to(player_shape, (player_x, player_y))
 
+  
 end_graphics()
